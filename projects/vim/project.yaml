@@ -1,4 +1,5 @@
 homepage: "https://www.vim.org/"
+main_repo: "https://github.com/vim/vim"
 language: c
 primary_contact: "vim-dev@vim.org"
 auto_ccs:
