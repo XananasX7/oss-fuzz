@@ -1,4 +1,5 @@
 homepage: "https://github.com/ebiggers/libdeflate"
+main_repo: "https://github.com/ebiggers/libdeflate"
 language: c
 primary_contact: "ebiggers3@gmail.com"
 auto_ccs:
