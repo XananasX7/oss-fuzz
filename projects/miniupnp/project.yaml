@@ -1,4 +1,5 @@
 homepage: "https://github.com/miniupnp/miniupnp"
+main_repo: "https://github.com/miniupnp/miniupnp"
 language: c
 primary_contact: "miniupnp@free.fr"
 auto_ccs:
