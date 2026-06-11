@@ -23,8 +23,14 @@ make
 
 static_pcre=($(find /src/pcre2 -name "libpcre2-8.a"))
 
-for fuzzer in lyd_parse_mem_json lyd_parse_mem_xml lys_parse_mem; do
-  $CC $CFLAGS -c ../tests/fuzz/${fuzzer}.c -I./libyang -I./compat
+# Original fuzzers + yang_parse_module (exists in upstream tests/fuzz/ but was not built)
+# + lyd_parse_lyb_fuzzer (new: covers the LYB binary format, zero prior fuzzing coverage)
+#   lyd_parse_lyb_fuzzer.c is kept in the oss-fuzz projects/libyang/ dir until
+#   the upstream PR (CESNET/libyang) lands; the cp below stages it alongside.
+cp $SRC/lyd_parse_lyb_fuzzer.c ../tests/fuzz/
+
+for fuzzer in lyd_parse_mem_json lyd_parse_mem_xml lys_parse_mem yang_parse_module lyd_parse_lyb_fuzzer; do
+  $CC $CFLAGS -c ../tests/fuzz/${fuzzer}.c -I./libyang -I./compat -I../src
   $CXX $CXXFLAGS $LIB_FUZZING_ENGINE ${fuzzer}.o -o $OUT/${fuzzer} \
     ./libyang.a ${static_pcre}
 done
